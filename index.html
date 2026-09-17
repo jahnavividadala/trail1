@@ -1,3 +1,7 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -68,6 +72,7 @@
 
         .page {
             display: none;
+            animation: fadeIn 0.3s ease;
         }
 
         .page.active {
@@ -106,7 +111,7 @@
             opacity: 0.9;
         }
 
-        /* BUTTON */
+        /* BUTTONS */
         .primary {
             background: white;
             color: #4f46e5;
@@ -121,7 +126,7 @@
 
         .primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
         }
 
         /* CARDS */
@@ -136,13 +141,13 @@
             padding: 25px;
             border-radius: 16px;
             border: 1px solid #e5e7eb;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.04);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.04);
             transition: 0.2s;
         }
 
         .card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
         }
 
         .card h3 {
@@ -164,7 +169,7 @@
         #recommendation {
             margin-top: 20px;
             padding: 15px;
-            background: rgba(255,255,255,0.15);
+            background: rgba(255, 255, 255, 0.15);
             border-radius: 10px;
             font-weight: 600;
         }
@@ -181,10 +186,12 @@
             font-weight: 700;
             cursor: pointer;
             margin-top: 20px;
+            transition: 0.2s;
         }
 
         .emergency:hover {
             background: #fecaca;
+            transform: translateY(-2px);
         }
 
         #emergencyResult {
@@ -193,6 +200,7 @@
             background: white;
             border-radius: 14px;
             border: 1px solid #e5e7eb;
+            line-height: 1.7;
         }
 
         /* MATERIALS */
@@ -216,7 +224,39 @@
             color: white;
         }
 
-        /* RESPONSIVE */
+        /* SIMPLE CONTENT BOXES */
+        .content-box {
+            background: white;
+            padding: 30px;
+            margin-top: 25px;
+            border-radius: 16px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.04);
+        }
+
+        .content-box h2 {
+            margin-bottom: 12px;
+        }
+
+        .content-box p {
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        /* ANIMATION */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* MOBILE */
         @media (max-width: 900px) {
             .sidebar {
                 width: 210px;
@@ -244,6 +284,17 @@
                 min-height: auto;
             }
 
+            .sidebar h2 {
+                margin-bottom: 15px;
+            }
+
+            .sidebar button {
+                display: inline-block;
+                width: auto;
+                margin: 3px;
+                padding: 10px;
+            }
+
             main {
                 margin-left: 0;
                 width: 100%;
@@ -260,3 +311,324 @@
         }
     </style>
 </head>
+
+<body>
+
+    <div class="app">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <h2>🚨 Deadline Rescue</h2>
+
+            <button onclick="showPage('dashboard')">🏠 Dashboard</button>
+            <button onclick="showPage('materials')">📚 My Materials</button>
+            <button onclick="showPage('quiz')">🧠 AI Quiz</button>
+            <button onclick="showPage('planner')">📅 Study Planner</button>
+            <button onclick="showPage('flashcards')">🃏 Flashcards</button>
+            <button onclick="showPage('progress')">📊 Progress</button>
+
+        </aside>
+
+
+        <main>
+
+            <!-- DASHBOARD -->
+            <section id="dashboard" class="page active">
+
+                <h1>Hey! Ready to study? 👋</h1>
+
+                <p class="subtitle">
+                    Let's turn your workload into a simple plan.
+                </p>
+
+
+                <div class="hero">
+
+                    <h2>What should I study now?</h2>
+
+                    <p>
+                        Let Deadline Rescue decide your next task.
+                    </p>
+
+                    <button class="primary" onclick="recommendTask()">
+                        Tell Me What To Study
+                    </button>
+
+                    <div id="recommendation"></div>
+
+                </div>
+
+
+                <div class="cards">
+
+                    <div class="card">
+                        <h3>📅 Next Exam</h3>
+                        <p>Data Structures</p>
+                        <strong>5 Days Left</strong>
+                    </div>
+
+                    <div class="card">
+                        <h3>📝 Assignment</h3>
+                        <p>AI Mini Project</p>
+                        <strong>Tomorrow</strong>
+                    </div>
+
+                    <div class="card">
+                        <h3>🎯 Progress</h3>
+                        <p>Today's Study</p>
+                        <strong>65%</strong>
+                    </div>
+
+                </div>
+
+
+                <button class="emergency" onclick="emergencyMode()">
+                    🚨 EXAM TOMORROW — Emergency Mode
+                </button>
+
+                <div id="emergencyResult"></div>
+
+            </section>
+
+
+            <!-- MATERIALS -->
+            <section id="materials" class="page">
+
+                <h1>📚 My Materials</h1>
+
+                <p class="subtitle">
+                    Upload your study material and understand it faster.
+                </p>
+
+                <div class="upload-box">
+
+                    <input type="file"
+                           id="fileInput"
+                           accept=".pdf,.ppt,.pptx,.txt">
+
+                    <button class="primary" onclick="explainMaterial()">
+                        Explain Material
+                    </button>
+
+                    <div id="materialResult"></div>
+
+                </div>
+
+            </section>
+
+
+            <!-- QUIZ -->
+            <section id="quiz" class="page">
+
+                <h1>🧠 AI Quiz</h1>
+
+                <p class="subtitle">
+                    Test yourself before the exam.
+                </p>
+
+                <div class="content-box">
+
+                    <h2>Quick Quiz</h2>
+
+                    <p>
+                        Click below to generate a practice question.
+                    </p>
+
+                    <br>
+
+                    <button class="primary"
+                            style="background:#4f46e5;color:white;"
+                            onclick="generateQuiz()">
+                        Generate Question
+                    </button>
+
+                    <div id="quizResult"></div>
+
+                </div>
+
+            </section>
+
+
+            <!-- PLANNER -->
+            <section id="planner" class="page">
+
+                <h1>📅 Study Planner</h1>
+
+                <p class="subtitle">
+                    Organize your study time without the stress.
+                </p>
+
+                <div class="content-box">
+
+                    <h2>Today's Plan</h2>
+
+                    <p>⏰ 4:00 PM — Data Structures</p>
+                    <p>⏰ 5:00 PM — AI Mini Project</p>
+                    <p>⏰ 6:00 PM — Revision</p>
+
+                </div>
+
+            </section>
+
+
+            <!-- FLASHCARDS -->
+            <section id="flashcards" class="page">
+
+                <h1>🃏 Flashcards</h1>
+
+                <p class="subtitle">
+                    Review important concepts quickly.
+                </p>
+
+                <div class="content-box">
+
+                    <h2 id="flashcardQuestion">
+                        What is an Algorithm?
+                    </h2>
+
+                    <button class="primary"
+                            style="background:#4f46e5;color:white;"
+                            onclick="showAnswer()">
+                        Show Answer
+                    </button>
+
+                    <p id="flashcardAnswer"></p>
+
+                </div>
+
+            </section>
+
+
+            <!-- PROGRESS -->
+            <section id="progress" class="page">
+
+                <h1>📊 Progress</h1>
+
+                <p class="subtitle">
+                    See how much you've completed.
+                </p>
+
+                <div class="cards">
+
+                    <div class="card">
+                        <h3>📚 Topics Completed</h3>
+                        <strong>12</strong>
+                    </div>
+
+                    <div class="card">
+                        <h3>🔥 Study Streak</h3>
+                        <strong>4 Days</strong>
+                    </div>
+
+                    <div class="card">
+                        <h3>🎯 Overall Progress</h3>
+                        <strong>65%</strong>
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- JAVASCRIPT -->
+    <script>
+
+        /* PAGE NAVIGATION */
+
+        function showPage(pageId) {
+
+            const pages = document.querySelectorAll(".page");
+
+            pages.forEach(function(page) {
+                page.classList.remove("active");
+            });
+
+            document.getElementById(pageId).classList.add("active");
+        }
+
+
+        /* STUDY RECOMMENDATION */
+
+        function recommendTask() {
+
+            document.getElementById("recommendation").innerHTML =
+                "🎯 Start with Data Structures — focus on one topic for 30 minutes!";
+        }
+
+
+        /* EMERGENCY MODE */
+
+        function emergencyMode() {
+
+            document.getElementById("emergencyResult").innerHTML =
+                "<h3>🚨 Emergency Study Plan</h3>" +
+                "<p>1️⃣ Revise the most important topics first.</p>" +
+                "<p>2️⃣ Practice previous questions.</p>" +
+                "<p>3️⃣ Take a 10-minute break after every 45 minutes.</p>" +
+                "<p>4️⃣ Finish with a quick revision before sleeping.</p>";
+        }
+
+
+        /* MATERIAL EXPLANATION */
+
+        function explainMaterial() {
+
+            const file = document.getElementById("fileInput").files[0];
+
+            if (!file) {
+
+                document.getElementById("materialResult").innerHTML =
+                    "<p style='color:#dc2626;margin-top:20px;'>⚠️ Please upload a file first.</p>";
+
+                return;
+            }
+
+            document.getElementById("materialResult").innerHTML =
+                "<p style='margin-top:20px;'>📖 " +
+                file.name +
+                " uploaded successfully! AI explanation feature coming soon.</p>";
+        }
+
+
+        /* QUIZ */
+
+        function generateQuiz() {
+
+            document.getElementById("quizResult").innerHTML =
+                "<div class='content-box'>" +
+                "<h3>Question:</h3>" +
+                "<p>What is the main purpose of a data structure?</p>" +
+                "<br>" +
+                "<button class='primary' style='background:#4f46e5;color:white;' onclick='showQuizAnswer()'>Show Answer</button>" +
+                "<p id='quizAnswer'></p>" +
+                "</div>";
+        }
+
+
+        function showQuizAnswer() {
+
+            document.getElementById("quizAnswer").innerHTML =
+                "<br>✅ To organize and store data efficiently so it can be accessed and modified effectively.";
+        }
+
+
+        /* FLASHCARD */
+
+        function showAnswer() {
+
+            document.getElementById("flashcardAnswer").innerHTML =
+                "<br>💡 An algorithm is a step-by-step procedure used to solve a problem or complete a task.";
+        }
+
+    </script>
+
+</body>
+
+</html>
+
+
