@@ -1,151 +1,262 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deadline Rescue</title>
-    <link rel="stylesheet" href="style.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f5f7fb;
+            color: #1f2937;
+        }
+
+        .app {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 250px;
+            min-height: 100vh;
+            background: #111827;
+            color: white;
+            padding: 25px 18px;
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+
+        .sidebar h2 {
+            font-size: 21px;
+            margin-bottom: 30px;
+            padding-left: 8px;
+        }
+
+        .sidebar button {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: #d1d5db;
+            padding: 14px 12px;
+            margin: 4px 0;
+            text-align: left;
+            font-size: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .sidebar button:hover {
+            background: #374151;
+            color: white;
+            transform: translateX(3px);
+        }
+
+        /* MAIN */
+        main {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            padding: 45px;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+            color: #111827;
+        }
+
+        .subtitle {
+            color: #6b7280;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        /* HERO */
+        .hero {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            padding: 35px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.2);
+        }
+
+        .hero h2 {
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            margin-bottom: 22px;
+            opacity: 0.9;
+        }
+
+        /* BUTTON */
+        .primary {
+            background: white;
+            color: #4f46e5;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+
+        /* CARDS */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.04);
+            transition: 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        .card h3 {
+            font-size: 17px;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: #6b7280;
+            margin-bottom: 10px;
+        }
+
+        .card strong {
+            color: #4f46e5;
+            font-size: 18px;
+        }
+
+        /* RECOMMENDATION */
+        #recommendation {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        /* EMERGENCY */
+        .emergency {
+            width: 100%;
+            background: #fee2e2;
+            color: #dc2626;
+            border: 2px solid #fecaca;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .emergency:hover {
+            background: #fecaca;
+        }
+
+        #emergencyResult {
+            margin-top: 15px;
+            padding: 20px;
+            background: white;
+            border-radius: 14px;
+            border: 1px solid #e5e7eb;
+        }
+
+        /* MATERIALS */
+        .upload-box {
+            background: white;
+            padding: 30px;
+            margin-top: 25px;
+            border-radius: 16px;
+            border: 2px dashed #c7d2fe;
+            text-align: center;
+        }
+
+        .upload-box input[type="file"] {
+            display: block;
+            margin: 0 auto 20px;
+            padding: 10px;
+        }
+
+        .upload-box .primary {
+            background: #4f46e5;
+            color: white;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .sidebar {
+                width: 210px;
+            }
+
+            main {
+                margin-left: 210px;
+                width: calc(100% - 210px);
+                padding: 30px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .app {
+                display: block;
+            }
+
+            .sidebar {
+                position: relative;
+                width: 100%;
+                min-height: auto;
+            }
+
+            main {
+                margin-left: 0;
+                width: 100%;
+                padding: 25px 18px;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
-
-<body>
-
-<div class="app">
-
-    <aside class="sidebar">
-        <h2>🚨 Deadline Rescue</h2>
-
-        <button onclick="showPage('dashboard')">🏠 Dashboard</button>
-        <button onclick="showPage('materials')">📚 My Materials</button>
-        <button onclick="showPage('quiz')">🧠 AI Quiz</button>
-        <button onclick="showPage('planner')">📅 Study Planner</button>
-        <button onclick="showPage('flashcards')">🃏 Flashcards</button>
-        <button onclick="showPage('progress')">📊 Progress</button>
-    </aside>
-
-    <main>
-
-        <!-- Dashboard -->
-        <section id="dashboard" class="page active">
-            <h1>Hey! Ready to study? 👋</h1>
-            <p class="subtitle">Let's turn your workload into a simple plan.</p>
-
-            <div class="hero">
-                <h2>What should I study now?</h2>
-                <p>Let Deadline Rescue decide your next task.</p>
-                <button class="primary" onclick="recommendTask()">
-                    Tell Me What To Study
-                </button>
-                <div id="recommendation"></div>
-            </div>
-
-            <div class="cards">
-                <div class="card">
-                    <h3>📅 Next Exam</h3>
-                    <p>Data Structures</p>
-                    <strong>5 Days Left</strong>
-                </div>
-
-                <div class="card">
-                    <h3>📝 Assignment</h3>
-                    <p>AI Mini Project</p>
-                    <strong>Tomorrow</strong>
-                </div>
-
-                <div class="card">
-                    <h3>🎯 Progress</h3>
-                    <p>Today's Study</p>
-                    <strong>65%</strong>
-                </div>
-            </div>
-
-            <button class="emergency" onclick="emergencyMode()">
-                🚨 EXAM TOMORROW — Emergency Mode
-            </button>
-
-            <div id="emergencyResult"></div>
-        </section>
-
-
-        <!-- Materials -->
-        <section id="materials" class="page">
-            <h1>📚 My Materials</h1>
-            <p>Upload your study material and understand it faster.</p>
-
-            <div class="upload-box">
-                <input type="file" id="fileInput" accept=".pdf,.ppt,.pptx,.txt">
-                <button class="primary" onclick="explainMaterial()">
-                    Explain Material
-                </button>
-            </div>
-
-            <div id="materialResult"></div>
-        </section>
-
-
-        <!-- Quiz -->
-        <section id="quiz" class="page">
-            <h1>🧠 AI Quiz</h1>
-            <p>Test yourself after studying.</p>
-
-            <button class="primary" onclick="generateQuiz()">
-                Generate Quiz
-            </button>
-
-            <div id="quizResult"></div>
-        </section>
-
-
-        <!-- Planner -->
-        <section id="planner" class="page">
-            <h1>📅 Smart Study Planner</h1>
-
-            <div class="form">
-                <input id="subject" placeholder="Subject">
-                <input id="hours" type="number" placeholder="Study hours">
-                <input id="deadline" type="date">
-
-                <button class="primary" onclick="createPlan()">
-                    Create My Plan
-                </button>
-            </div>
-
-            <div id="planResult"></div>
-        </section>
-
-
-        <!-- Flashcards -->
-        <section id="flashcards" class="page">
-            <h1>🃏 Flashcards</h1>
-            <p>Quick revision made easy.</p>
-
-            <button class="primary" onclick="generateFlashcards()">
-                Generate Flashcards
-            </button>
-
-            <div id="flashcardResult"></div>
-        </section>
-
-
-        <!-- Progress -->
-        <section id="progress" class="page">
-            <h1>📊 My Progress</h1>
-
-            <div class="progress-box">
-                <h3>Weekly Study Progress</h3>
-
-                <div class="progress-bar">
-                    <div class="progress-fill"></div>
-                </div>
-
-                <h2>65%</h2>
-                <p>Keep going! You're making progress. 🔥</p>
-            </div>
-        </section>
-
-    </main>
-</div>
-
-<script src="script.js"></script>
-
-</body>
-</html>
