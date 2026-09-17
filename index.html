@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deadline Rescue</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <aside class="sidebar">
+        <h2>🚨 Deadline Rescue</h2>
+
+        <button onclick="showPage('dashboard')">🏠 Dashboard</button>
+        <button onclick="showPage('materials')">📚 My Materials</button>
+        <button onclick="showPage('quiz')">🧠 AI Quiz</button>
+        <button onclick="showPage('planner')">📅 Study Planner</button>
+        <button onclick="showPage('flashcards')">🃏 Flashcards</button>
+        <button onclick="showPage('progress')">📊 Progress</button>
+    </aside>
+
+    <main>
+
+        <!-- Dashboard -->
+        <section id="dashboard" class="page active">
+            <h1>Hey! Ready to study? 👋</h1>
+            <p class="subtitle">Let's turn your workload into a simple plan.</p>
+
+            <div class="hero">
+                <h2>What should I study now?</h2>
+                <p>Let Deadline Rescue decide your next task.</p>
+                <button class="primary" onclick="recommendTask()">
+                    Tell Me What To Study
+                </button>
+                <div id="recommendation"></div>
+            </div>
+
+            <div class="cards">
+                <div class="card">
+                    <h3>📅 Next Exam</h3>
+                    <p>Data Structures</p>
+                    <strong>5 Days Left</strong>
+                </div>
+
+                <div class="card">
+                    <h3>📝 Assignment</h3>
+                    <p>AI Mini Project</p>
+                    <strong>Tomorrow</strong>
+                </div>
+
+                <div class="card">
+                    <h3>🎯 Progress</h3>
+                    <p>Today's Study</p>
+                    <strong>65%</strong>
+                </div>
+            </div>
+
+            <button class="emergency" onclick="emergencyMode()">
+                🚨 EXAM TOMORROW — Emergency Mode
+            </button>
+
+            <div id="emergencyResult"></div>
+        </section>
+
+
+        <!-- Materials -->
+        <section id="materials" class="page">
+            <h1>📚 My Materials</h1>
+            <p>Upload your study material and understand it faster.</p>
+
+            <div class="upload-box">
+                <input type="file" id="fileInput" accept=".pdf,.ppt,.pptx,.txt">
+                <button class="primary" onclick="explainMaterial()">
+                    Explain Material
+                </button>
+            </div>
+
+            <div id="materialResult"></div>
+        </section>
+
+
+        <!-- Quiz -->
+        <section id="quiz" class="page">
+            <h1>🧠 AI Quiz</h1>
+            <p>Test yourself after studying.</p>
+
+            <button class="primary" onclick="generateQuiz()">
+                Generate Quiz
+            </button>
+
+            <div id="quizResult"></div>
+        </section>
+
+
+        <!-- Planner -->
+        <section id="planner" class="page">
+            <h1>📅 Smart Study Planner</h1>
+
+            <div class="form">
+                <input id="subject" placeholder="Subject">
+                <input id="hours" type="number" placeholder="Study hours">
+                <input id="deadline" type="date">
+
+                <button class="primary" onclick="createPlan()">
+                    Create My Plan
+                </button>
+            </div>
+
+            <div id="planResult"></div>
+        </section>
+
+
+        <!-- Flashcards -->
+        <section id="flashcards" class="page">
+            <h1>🃏 Flashcards</h1>
+            <p>Quick revision made easy.</p>
+
+            <button class="primary" onclick="generateFlashcards()">
+                Generate Flashcards
+            </button>
+
+            <div id="flashcardResult"></div>
+        </section>
+
+
+        <!-- Progress -->
+        <section id="progress" class="page">
+            <h1>📊 My Progress</h1>
+
+            <div class="progress-box">
+                <h3>Weekly Study Progress</h3>
+
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+
+                <h2>65%</h2>
+                <p>Keep going! You're making progress. 🔥</p>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
